@@ -187,13 +187,15 @@ Respuesta:
             "codigoCliente": 1,
             "montoPropuesto": 500,
             "comentario": "Quiero convenio de pago",
-            "fechaRegistro": "2026-04-27T13:46:53.3189693-05:00"
+            "fechaRegistro": "2026-04-27T16:07:46.1054685-05:00",
+            "aplicaDescuento": false
         },
         {
             "codigoCliente": 8,
             "montoPropuesto": 500,
             "comentario": "Prueba descuento",
-            "fechaRegistro": "2026-04-27T13:47:02.8346402-05:00"
+            "fechaRegistro": "2026-04-27T16:08:01.5728673-05:00",
+            "aplicaDescuento": true
         }
     ],
     "errores": null
