@@ -77,6 +77,87 @@ http://localhost:4200
 
 ## 6. 🔌 Endpoints del API
 
+
+### 📍 POST - Registrar intención
+
+POST /api/intencionpago
+
+## 🧪 POSTMAN
+[http://localhost:5151/api/IntencionPago]
+
+Headers:
+Content-Type: application/json
+
+---
+
+### ❌ NO califica:
+Body:
+{
+"codigoCliente": 1,
+"montoPropuesto": 500,
+"comentario": "Quiero convenio de pago"
+}
+
+Respuesta:
+
+{
+"exito": true,
+"mensaje": "Operación realizada correctamente",
+"data": {
+"codigoCliente": 1,
+"nombreCliente": "JEAN CARLOS ROMERO ARMIJOS",
+"moraMaxima": 90,
+"aplicaDescuento": false,
+"mensaje": "Cliente no califica para descuento"
+},
+"errores": null
+}
+
+---
+
+### ✅ SI califica:
+
+{
+"codigoCliente": 8,
+"montoPropuesto": 500,
+"comentario": "Prueba descuento"
+}
+
+Respuesta:
+
+{
+"exito": true,
+"mensaje": "Operación realizada correctamente",
+"data": {
+"codigoCliente": 8,
+"nombreCliente": "MARIA FERNANDA LOPEZ",
+"moraMaxima": 180,
+"aplicaDescuento": true,
+"mensaje": "Cliente califica para campaña de descuento"
+},
+"errores": null
+}
+
+---
+
+### ❌ NO existe:
+
+{
+"codigoCliente": 999,
+"montoPropuesto": 500,
+"comentario": "Cliente inexistente"
+}
+
+Respuesta:
+
+{
+"exito": false,
+"mensaje": "Cliente no encontrado",
+"data": null,
+"errores": null
+}
+
+
 ### 📍 GET - Obtener historial
 
 GET /api/intencionpago
@@ -86,47 +167,31 @@ Retorna todas las intenciones de pago registradas.
 
 Ejemplo de respuesta:
 
-{
-  "exito": true,
-  "mensaje": "Consulta exitosa",
-  "data": [
-    {
-      "codigoCliente": 1,
-      "montoPropuesto": 150,
-      "comentario": "Pago parcial",
-      "fechaRegistro": "2026-04-27T10:20:30"
-    }
-  ]
-}
+🧪 Desde Postman con GET
 
----
+GET
+http://localhost:5151/api/intencionpago
 
-### 📍 POST - Registrar intención
-
-POST /api/intencionpago
-
-Headers:
-Content-Type: application/json
-
-Body:
+Respuesta:
 
 {
-  "codigoCliente": 1,
-  "montoPropuesto": 150,
-  "comentario": "Puedo pagar en cuotas"
-}
-
-Respuesta exitosa:
-
-{
-  "exito": true,
-  "mensaje": "Operación realizada correctamente",
-  "data": {
-    "codigoCliente": 1,
-    "montoPropuesto": 150,
-    "comentario": "Puedo pagar en cuotas",
-    "fechaRegistro": "2026-04-27T10:30:00"
-  }
+    "exito": true,
+    "mensaje": "Consulta exitosa",
+    "data": [
+        {
+            "codigoCliente": 1,
+            "montoPropuesto": 500,
+            "comentario": "Quiero convenio de pago",
+            "fechaRegistro": "2026-04-27T13:46:53.3189693-05:00"
+        },
+        {
+            "codigoCliente": 8,
+            "montoPropuesto": 500,
+            "comentario": "Prueba descuento",
+            "fechaRegistro": "2026-04-27T13:47:02.8346402-05:00"
+        }
+    ],
+    "errores": null
 }
 
 ---
@@ -161,25 +226,8 @@ Comunicación mediante HTTP REST con JSON.
 
 ---
 
-## 10. 🧪 Pruebas con Postman
 
-GET:
-http://localhost:5151/api/intencionpago
-
-POST:
-http://localhost:5151/api/intencionpago
-
-Body:
-
-{
-  "codigoCliente": 2,
-  "montoPropuesto": 200,
-  "comentario": "Pago mensual"
-}
-
----
-
-## 11. 📝 Notas importantes
+## 10. 📝 Notas importantes
 
 - No se utiliza base de datos
 - Datos simulados en memoria
