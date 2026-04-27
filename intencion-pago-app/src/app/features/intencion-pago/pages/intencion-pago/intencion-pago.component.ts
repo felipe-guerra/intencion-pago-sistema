@@ -50,8 +50,17 @@ export class IntencionPagoComponent {
             this.error = res.mensaje;
           }
         },
-        error: () => {
-          this.error = 'Error al conectar con el servicio';
+        error: (err) => {
+            this.loading = false;
+
+            // Si el backend respondió con mensaje (error de negocio)
+            if (err?.error?.mensaje) {
+            this.error = err.error.mensaje;
+            } 
+            // Si no hay respuesta (backend caído, CORS, red)
+            else {
+            this.error = 'Error al conectar con el servicio';
+            }
         }
       });
   }
