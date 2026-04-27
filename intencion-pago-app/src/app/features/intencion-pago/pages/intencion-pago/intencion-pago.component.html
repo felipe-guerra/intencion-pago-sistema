@@ -1,0 +1,81 @@
+<div class="corporate-wrapper">
+  <div class="card">
+    <div class="card-header">
+      <div class="header-nav">
+        <a routerLink="/historial" class="nav-link">Ver Historial</a>
+      </div>
+      <div class="icon-wrapper">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="header-icon">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>
+      <h2>Intención de Pago</h2>
+      <p class="subtitle">Complete los datos para generar un nuevo acuerdo.</p>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="enviar()" class="corporate-form">
+
+        <div class="form-group">
+            <label for="codigoCliente">Código de Cliente</label>
+            <div class="input-wrapper">
+                <input id="codigoCliente" type="number" formControlName="codigoCliente" placeholder="Ej. 10456">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="montoPropuesto">Monto Propuesto USD</label>
+            <div class="input-wrapper">
+                <input id="montoPropuesto" type="number" formControlName="montoPropuesto" placeholder="0.00">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="comentario">Comentario Adicional</label>
+            <textarea id="comentario" formControlName="comentario" placeholder="Escriba un comentario o justificación detallada..." rows="3"></textarea>
+        </div>
+
+        <div class="action-bar">
+            <button type="submit" class="btn-primary" [disabled]="loading || form.invalid">
+                <span *ngIf="!loading">Registrar Intención</span>
+                <span *ngIf="loading" class="spinner"></span>
+                <span *ngIf="loading">Procesando...</span>
+            </button>
+        </div>
+
+    </form>
+
+    <div *ngIf="error" class="alert alert-danger">
+        <svg xmlns="http://www.w3.org/2000/svg" class="alert-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span>{{ error }}</span>
+    </div>
+
+    <div *ngIf="response" class="result-card">
+        <div class="result-header">
+            <h3>Resumen de la Transacción</h3>
+        </div>
+        <div class="result-body">
+            <div class="result-row">
+                <span class="label">Cliente:</span>
+                <span class="value">{{ response.nombreCliente }}</span>
+            </div>
+            <div class="result-row">
+                <span class="label">Mora Máxima:</span>
+                <span class="value">{{ response.moraMaxima }}</span>
+            </div>
+            <div class="result-row">
+                <span class="label">Aplica Descuento:</span>
+                <span class="value badge" [ngClass]="{'badge-success': response.aplicaDescuento, 'badge-error': !response.aplicaDescuento}">
+                    {{ response.aplicaDescuento ? 'Sí Aplica' : 'No Aplica' }}
+                </span>
+            </div>
+            <div class="result-row result-message">
+                <span class="label">Mensaje:</span>
+                <span class="value">{{ response.mensaje }}</span>
+            </div>
+        </div>
+    </div>
+
+  </div>
+</div>

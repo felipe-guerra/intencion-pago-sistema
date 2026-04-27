@@ -1,0 +1,40 @@
+<div class="list-container">
+  <div class="list-header">
+    <div class="header-main">
+      <a routerLink="/" class="nav-link">Nueva Intención</a>
+      <h2>Historial de Intenciones</h2>
+    </div>
+    <button class="btn-refresh" (click)="cargarIntenciones()" [disabled]="loading">
+      <span *ngIf="loading" class="spinner"></span>
+      {{ loading ? 'Cargando...' : 'Actualizar' }}
+    </button>
+  </div>
+
+  <div *ngIf="error" class="error-msg">
+    {{ error }}
+  </div>
+
+  <div class="table-scroll">
+    <table class="history-table">
+      <thead>
+        <tr>
+          <th>Código Cliente</th>
+          <th>Monto Propuesto</th>
+          <th>Comentario</th>
+          <th>Fecha</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of intenciones">
+          <td><span class="client-id">{{ item.codigoCliente }}</span></td>
+          <td class="amount">{{ item.montoPropuesto | currency:'USD':'symbol':'1.2-2' }}</td>
+          <td>{{ item.comentario }}</td>
+          <td class="date">{{ item.fechaRegistro | date:'dd/MM/yyyy HH:mm' }}</td>
+        </tr>
+        <tr *ngIf="intenciones.length === 0 && !loading">
+          <td colspan="4" class="empty">No hay intenciones registradas.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
