@@ -3,4 +3,5 @@ export interface IntencionPago {
     montoPropuesto: number;
     comentario: string;
     fechaRegistro: string;
+    aplicaDescuento: boolean;
 }

@@ -21,6 +21,7 @@
           <th>Código Cliente</th>
           <th>Monto Propuesto</th>
           <th>Comentario</th>
+          <th>Descuento</th>
           <th>Fecha</th>
         </tr>
       </thead>
@@ -29,10 +30,11 @@
           <td><span class="client-id">{{ item.codigoCliente }}</span></td>
           <td class="amount">{{ item.montoPropuesto | currency:'USD':'symbol':'1.2-2' }}</td>
           <td>{{ item.comentario }}</td>
+          <td>{{ item.aplicaDescuento ? 'Apto' : 'No apto' }}</td>
           <td class="date">{{ item.fechaRegistro | date:'dd/MM/yyyy HH:mm' }}</td>
         </tr>
         <tr *ngIf="intenciones.length === 0 && !loading">
-          <td colspan="4" class="empty">No hay intenciones registradas.</td>
+          <td colspan="5" class="empty">No hay intenciones registradas.</td>
         </tr>
       </tbody>
     </table>
