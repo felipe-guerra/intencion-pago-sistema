@@ -53,8 +53,12 @@ npm install -g @angular/cli
 
 ## 5. 🚀 Ejecución del proyecto
 
+Clonar el repositorio desde GitHub (público):
+git clone https://github.com/felipe-guerra/intencion-pago-sistema.git
+
 ### 🔵 Backend (.NET 8)
 
+cd intencion-pago-sistema
 cd CobranzaAPI
 dotnet restore
 dotnet run
@@ -66,6 +70,7 @@ http://localhost:5151/api/intencionpago
 
 ### 🟢 Frontend (Angular 17)
 
+cd intencion-pago-sistema
 cd intencion-pago-app
 npm install
 ng serve
