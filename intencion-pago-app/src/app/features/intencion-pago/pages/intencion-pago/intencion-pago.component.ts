@@ -46,21 +46,22 @@ export class IntencionPagoComponent {
         next: (res) => {
           if (res.exito) {
             this.response = res.data;
+            this.form.reset();
           } else {
             this.error = res.mensaje;
           }
         },
         error: (err) => {
-            this.loading = false;
+          this.loading = false;
 
-            // Si el backend respondió con mensaje (error de negocio)
-            if (err?.error?.mensaje) {
+          // Si el backend respondió con mensaje (error de negocio)
+          if (err?.error?.mensaje) {
             this.error = err.error.mensaje;
-            } 
-            // Si no hay respuesta (backend caído, CORS, red)
-            else {
+          }
+          // Si no hay respuesta (backend caído, CORS, red)
+          else {
             this.error = 'Error al conectar con el servicio';
-            }
+          }
         }
       });
   }
