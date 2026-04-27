@@ -6,11 +6,30 @@ namespace CobranzaAPI.Services;
 
 public class IntencionPagoService
 {
-    public ApiResponse<List<IntencionPago>> ObtenerTodas()
+    public ApiResponse<List<IntencionPagoListResponse>> ObtenerTodas()
     {
-        var data = FakeIntencionesPago.Intenciones ?? new List<IntencionPago>();
+        var intenciones = FakeIntencionesPago.Intenciones ?? new List<IntencionPago>();
 
-        return new ApiResponse<List<IntencionPago>>
+        var data = intenciones.Select(intencion =>
+        {
+            var moraMaxima = FakeOperaciones.Operaciones
+                .Where(x => x.CodigoCliente == intencion.CodigoCliente)
+                .Select(x => (int?)x.Mora)
+                .Max() ?? 0;
+
+            var aplica = moraMaxima > 120;
+
+            return new IntencionPagoListResponse
+            {
+                CodigoCliente = intencion.CodigoCliente,
+                MontoPropuesto = intencion.MontoPropuesto,
+                Comentario = intencion.Comentario,
+                FechaRegistro = intencion.FechaRegistro,
+                AplicaDescuento = aplica
+            };
+        }).ToList();
+
+        return new ApiResponse<List<IntencionPagoListResponse>>
         {
             Exito = true,
             Mensaje = "Consulta exitosa",
